@@ -5,23 +5,27 @@
   "description": "A Strapi application",
   "scripts": {
     "develop": "strapi develop",
+    "dev": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "better-sqlite3": "8.0.1",
+    "nodemon": "^2.0.22"
+  },
   "dependencies": {
-    "@strapi/plugin-i18n": "4.5.5",
-    "@strapi/plugin-users-permissions": "4.5.5",
-    "@strapi/provider-upload-cloudinary": "4.5.5",
-    "@strapi/strapi": "4.5.5",
-    "pg": "8.8.0"
+    "@strapi/plugin-i18n": "4.10.4",
+    "@strapi/plugin-users-permissions": "4.10.4",
+    "@strapi/strapi": "4.10.4",
+    "rambda": "^7.5.0",
+    "telegraf": "^4.12.2"
   },
   "author": {
     "name": "A Strapi developer"
   },
   "strapi": {
-    "uuid": "35d7a084-3088-4d0b-869e-f503693ee8e5"
+    "uuid": "583abf5e-e2ed-47f4-848d-eb731bf1ba7e"
   },
   "engines": {
     "node": ">=16.x.x",

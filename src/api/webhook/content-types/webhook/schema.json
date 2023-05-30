@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "webhooks",
+  "info": {
+    "singularName": "webhook",
+    "pluralName": "webhooks",
+    "displayName": "Webhook",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "slug": {
+      "type": "uid"
+    },
+    "name": {
+      "type": "string"
+    },
+    "telegrams": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::telegram.telegram",
+      "inversedBy": "webhooks"
+    },
+    "signals": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::signal.signal",
+      "mappedBy": "webhook"
+    },
+    "targetPercentageChange": {
+      "type": "decimal",
+      "required": true
+    },
+    "filterDates": {
+      "type": "json"
+    }
+  }
+}

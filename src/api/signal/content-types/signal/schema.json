@@ -1,0 +1,70 @@
+{
+  "kind": "collectionType",
+  "collectionName": "signals",
+  "info": {
+    "singularName": "signal",
+    "pluralName": "signals",
+    "displayName": "Signal",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "webhook": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::webhook.webhook",
+      "inversedBy": "signals"
+    },
+    "direction": {
+      "type": "enumeration",
+      "enum": [
+        "LONG",
+        "SHORT"
+      ]
+    },
+    "alert": {
+      "type": "json"
+    },
+    "message": {
+      "type": "text"
+    },
+    "symbol": {
+      "type": "string"
+    },
+    "price": {
+      "type": "float"
+    },
+    "profit": {
+      "type": "decimal"
+    },
+    "valid": {
+      "type": "boolean"
+    },
+    "comment": {
+      "type": "text"
+    },
+    "closedAt": {
+      "type": "datetime"
+    },
+    "closeReason": {
+      "type": "string"
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "hasWick": {
+      "type": "boolean"
+    },
+    "hasFilteredDate": {
+      "type": "boolean"
+    }
+  }
+}

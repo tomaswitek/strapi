@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "telegrams",
+  "info": {
+    "singularName": "telegram",
+    "pluralName": "telegrams",
+    "displayName": "Telegram",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "chatId": {
+      "type": "string"
+    },
+    "webhooks": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::webhook.webhook",
+      "mappedBy": "telegrams"
+    }
+  }
+}

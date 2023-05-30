@@ -1,0 +1,5 @@
+/**
+ * tradingview service
+ */
+
+export default () => ({});
