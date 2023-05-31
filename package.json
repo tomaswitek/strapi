@@ -18,6 +18,7 @@
     "@strapi/plugin-i18n": "4.10.4",
     "@strapi/plugin-users-permissions": "4.10.4",
     "@strapi/strapi": "4.10.4",
+    "pg": "^8.11.0",
     "rambda": "^7.5.0",
     "telegraf": "^4.12.2"
   },
