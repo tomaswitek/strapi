@@ -7,41 +7,93 @@ import { fromPairs, any } from "rambda";
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
 
 // 0,1,2,3,4,5,6
-function convertDayOfWeek(day) {
+function convertDayOfWeek(configuredDay) {
   const date = new Date();
   const currentDay = date.getDay();
-  if (day >= currentDay) {
-    return date.getDate() + (day - currentDay);
+  if (configuredDay >= currentDay && configuredDay > 0) {
+    return date.getDate() + (configuredDay - currentDay);
   } else {
-    return date.getDate() + (7 - currentDay) + day;
+    return date.getDate() + (7 - currentDay) + configuredDay;
   }
 }
 
 function getTimezoneOffset(configuredOffset = -2) {
   const date = new Date();
   const timezoneOffset = date.getTimezoneOffset() / 60;
-  // console.log("timezoneOffset", timezoneOffset, date);
-  // console.log("getTimezoneOffset", configuredOffset - timezoneOffset);
-  return configuredOffset + timezoneOffset;
+  console.log("timezoneOffset", timezoneOffset, date);
+  console.log("getTimezoneOffset", configuredOffset + Math.abs(timezoneOffset));
+  return configuredOffset + Math.abs(timezoneOffset);
 }
 
 function convertDate(d) {
   const date = new Date();
+  console.log("convertDate", d);
+  console.log("d.hours + getTimezoneOffset()", d.hours + getTimezoneOffset());
   return new Date(
     d.year || date.getFullYear(),
     d.month ? d.month - 1 : date.getMonth(),
-    d.day,
+    d.day ? d.day : date.getDate(),
     d.hours + getTimezoneOffset(),
     d.minutes
   );
+}
+
+function isAfter(date) {
+  const { day, hours, minutes } = date;
+  const currentDate = new Date();
+  const currentDay = currentDate.getDay();
+  // same day
+  if (day === currentDay) {
+    const configuredTime = convertDate({ hours, minutes });
+    return currentDate > configuredTime;
+  }
+  console.log("isAfter");
+  console.log("currentDay > day", day, currentDay);
+  // different day
+  return currentDay > day;
+}
+
+function isBefore(date) {
+  const { day, hours, minutes } = date;
+  const currentDate = new Date();
+  const currentDay = currentDate.getDay();
+  // same day
+  if (day === currentDay) {
+    const configuredTime = convertDate({ hours, minutes });
+    console.log("configuredTime", configuredTime, { hours, minutes });
+    console.log("currentDate", currentDate);
+    return currentDate < configuredTime;
+  }
+  console.log("isBefore");
+  console.log("currentDay < day", day, currentDay);
+  // different day
+  return currentDay < day;
+}
+
+function filterRecurringRange(start, end) {
+  if (start.day > end.day) {
+    console.log(
+      "isAfter(start) || isBefore(end)",
+      isAfter(start),
+      isBefore(end)
+    );
+    return isAfter(start) || isBefore(end);
+  } else {
+    console.log(
+      "isAfter(start) && isBefore(end)",
+      isAfter(start),
+      isBefore(end)
+    );
+    return isAfter(start) && isBefore(end);
+  }
 }
 
 function filterDate(date) {
   const { start, end, recurring } = date;
   const currentDate = new Date();
   if (recurring) {
-    start.day = convertDayOfWeek(start.day);
-    end.day = convertDayOfWeek(end.day);
+    // filter by reccuring range
+    return filterRecurringRange(start, end);
   }
   const startDate = convertDate(start);
   const endDate = convertDate(end);
