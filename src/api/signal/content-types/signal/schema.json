@@ -66,8 +66,13 @@
     "hasFilteredDate": {
       "type": "boolean"
     },
-    "loss": {
-      "type": "boolean"
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "open",
+        "win",
+        "loss"
+      ]
     }
   }
 }
