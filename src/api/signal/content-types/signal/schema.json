@@ -49,8 +49,8 @@
     "closedAt": {
       "type": "datetime"
     },
-    "closeReason": {
-      "type": "string"
+    "notes": {
+      "type": "text"
     },
     "images": {
       "type": "media",
