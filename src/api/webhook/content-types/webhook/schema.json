@@ -36,6 +36,9 @@
     },
     "filterDates": {
       "type": "json"
+    },
+    "trendlineDistancePercentage": {
+      "type": "integer"
     }
   }
 }

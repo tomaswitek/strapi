@@ -159,15 +159,9 @@ export default {
         ? -webhook.targetPercentageChange
         : webhook.targetPercentageChange;
     const message = `${symbol}, ${direction}
-Entry Zone: ${alert.entry_1} - ${alert.entry_2}
+Entry: ${alert.entry_1}
 TP 1: ${changeTarget(alert.tp_1, targetPercentageChange)}
-TP 2: ${changeTarget(alert.tp_2, targetPercentageChange)}
-TP 3: ${changeTarget(alert.tp_3, targetPercentageChange)}
-TP 4: ${changeTarget(alert.tp_4, targetPercentageChange)}
-Leverage: 10x cross
-
-Trailing Configuration:
-Stop: Breakeven - Trigger: Target (1)`;
+Leverage: 10x cross`;
     let signal = {
       symbol,
       name: webhook.name,
