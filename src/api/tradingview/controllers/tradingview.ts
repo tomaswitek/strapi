@@ -20,15 +20,11 @@ function convertDayOfWeek(configuredDay) {
 function getTimezoneOffset(configuredOffset = -2) {
   const date = new Date();
   const timezoneOffset = date.getTimezoneOffset() / 60;
-  console.log("timezoneOffset", timezoneOffset, date);
-  console.log("getTimezoneOffset", configuredOffset + Math.abs(timezoneOffset));
   return configuredOffset + Math.abs(timezoneOffset);
 }
 
 function convertDate(d) {
   const date = new Date();
-  console.log("convertDate", d);
-  console.log("d.hours + getTimezoneOffset()", d.hours + getTimezoneOffset());
   return new Date(
     d.year || date.getFullYear(),
     d.month ? d.month - 1 : date.getMonth(),
@@ -47,8 +43,6 @@ function isAfter(date) {
     const configuredTime = convertDate({ hours, minutes });
     return currentDate > configuredTime;
   }
-  console.log("isAfter");
-  console.log("currentDay > day", day, currentDay);
   // different day
   return currentDay > day;
 }
@@ -60,30 +54,16 @@ function isBefore(date) {
   // same day
   if (day === currentDay) {
     const configuredTime = convertDate({ hours, minutes });
-    console.log("configuredTime", configuredTime, { hours, minutes });
-    console.log("currentDate", currentDate);
     return currentDate < configuredTime;
   }
-  console.log("isBefore");
-  console.log("currentDay < day", day, currentDay);
   // different day
   return currentDay < day;
 }
 
 function filterRecurringRange(start, end) {
   if (start.day > end.day) {
-    console.log(
-      "isAfter(start) || isBefore(end)",
-      isAfter(start),
-      isBefore(end)
-    );
     return isAfter(start) || isBefore(end);
   } else {
-    console.log(
-      "isAfter(start) && isBefore(end)",
-      isAfter(start),
-      isBefore(end)
-    );
     return isAfter(start) && isBefore(end);
   }
 }
@@ -112,6 +92,16 @@ function checkSignalValidity(signal) {
   if (direction === "LONG" && parseFloat(alert.high) > tp1) {
     signal.valid = false;
     signal.hasWick = true;
+  }
+  const entryDistancePercentage = Math.abs(
+    (alert.entry_1 * 100) / alert.trend_line - 100
+  );
+  if (
+    webhook.trendlineDistancePercentage &&
+    entryDistancePercentage > webhook.trendlineDistancePercentage
+  ) {
+    signal.valid = false;
+    signal.isFarFromTrendLine = true;
   }
   const { filterDates = [] } = webhook;
   const hasFilteredDate = any(filterDate)(filterDates);

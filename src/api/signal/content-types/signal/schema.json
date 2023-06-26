@@ -74,6 +74,9 @@
         "loss"
       ],
       "default": "open"
+    },
+    "isFarFromTrendLine": {
+      "type": "boolean"
     }
   }
 }
