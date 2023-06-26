@@ -20,6 +20,7 @@
     "@strapi/strapi": "4.10.4",
     "pg": "^8.11.0",
     "rambda": "^7.5.0",
+    "strapi-plugin-import-export-entries": "^1.21.0",
     "telegraf": "^4.12.2"
   },
   "author": {
